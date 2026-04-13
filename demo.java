@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The Demo class reads policy data from a file,
- * creates Policy objects, stores them in an ArrayList,
- * and displays the policy information.
+ * Demo class reads policy data from a file and displays results.
  */
 public class Demo {
 
@@ -41,55 +39,33 @@ public class Demo {
                 inputFile.nextLine();
             }
 
-            Policy policy = new Policy(policyNumber, providerName, firstName,
-                    lastName, age, smokingStatus, height, weight);
+            PolicyHolder holder = new PolicyHolder(
+                    firstName, lastName, age, smokingStatus, height, weight);
+
+            Policy policy = new Policy(policyNumber, providerName, holder);
 
             policies.add(policy);
 
-            if (smokingStatus.equalsIgnoreCase("smoker")) {
+            if (smokingStatus.equalsIgnoreCase("smoker"))
                 smokerCount++;
-            } else {
+            else
                 nonSmokerCount++;
-            }
         }
 
         inputFile.close();
 
         for (Policy p : policies) {
 
-            System.out.println("Policy Number: " + p.getPolicyNumber());
-            System.out.println();
-
-            System.out.println("Provider Name: " + p.getProviderName());
-            System.out.println();
-
-            System.out.println("Policyholder's First Name: " + p.getFirstName());
-            System.out.println();
-
-            System.out.println("Policyholder's Last Name: " + p.getLastName());
-            System.out.println();
-
-            System.out.println("Policyholder's Age: " + p.getAge());
-            System.out.println();
-
-            System.out.println("Policyholder's Smoking Status (smoker/non-smoker): " + p.getSmokingStatus());
-            System.out.println();
-
-            System.out.println("Policyholder's Height: " + p.getHeight() + " inches");
-            System.out.println();
-
-            System.out.println("Policyholder's Weight: " + p.getWeight() + " pounds");
-            System.out.println();
-
-            System.out.printf("Policyholder's BMI: %.2f\n", p.calculateBMI());
-            System.out.println();
-
-            System.out.printf("Policy Price: $%.2f\n", p.calculatePolicyPrice());
-            System.out.println();
+            /* implicitly calls toString() */
+            System.out.println(p);
             System.out.println();
         }
 
+        System.out.println("There were " + Policy.getPolicyCount() + " Policy objects created.\n");
+
         System.out.println("The number of policies with a smoker is: " + smokerCount);
         System.out.println();
+
         System.out.println("The number of policies with a non-smoker is: " + nonSmokerCount);
-    
+    }
+}
